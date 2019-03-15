@@ -1,0 +1,35 @@
+{
+  "name": "flash-cache-redis",
+  "version": "0.0.1",
+  "description": "Save the value in memory to reduce the frequency of reading redis.",
+  "main": "index.js",
+  "scripts": {
+    "test": "nyc mocha --recursive src/test/mocha --timeout 99999 --exit",
+    "coverage": "nyc report"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/yunnysunny/flash-cache-redis.git"
+  },
+  "keywords": [
+    "memory",
+    "cache",
+    "redis"
+  ],
+  "author": "yunnysunny",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yunnysunny/flash-cache-redis/issues"
+  },
+  "homepage": "https://github.com/yunnysunny/flash-cache-redis#readme",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "ioredis": "^4.6.2",
+    "mocha": "^6.0.2",
+    "nyc": "^13.3.0",
+    "sinon": "^7.2.7"
+  },
+  "dependencies": {
+    "flash-cache": "^0.3.0"
+  }
+}

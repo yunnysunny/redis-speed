@@ -40,7 +40,7 @@ redisClient.set(KEY,JSON.stringify(VALUE),function(err) {//save session
 ```
 
 ## API
-
+[api](docs/api.md)
 
 ## License
 [MIT](LICENSE)

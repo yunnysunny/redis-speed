@@ -39,6 +39,27 @@ redisClient.set(KEY,JSON.stringify(VALUE),function(err) {//save session
 });
 ```
 
+## RedisHelper
+An utility class to do parallel job with redis. If your redis is run in cluster mode, it will not return the data properly with some functions, such as `pipeline` or `mutil`. `RedisHelper` is designed to resoved such issue.
+
+### Usage
+
+```javascript
+const {RedisHelper} = require('redis-speed');
+const key1 = 'key1';
+const value1 = Math.random() + '';
+const key2 = 'key2';
+const value2 = Math.random() + '';
+const tasks = [
+    ['set',key1,value1],
+    ['set',key2,value2]
+];
+redisHelper.doParallelJobs(tasks,function(none,[[err1],[err2]]) {
+
+});
+```
+
+
 ## API
 [api](docs/api.md)
 

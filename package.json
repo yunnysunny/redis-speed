@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --recursive test/mocha --timeout 99999 --exit",
-    "coverage": "nyc report | coveralls",
+    "coverage": "nyc report  --reporter=text-lcov | coveralls",
     "doc": "jsdoc2md lib/*.js > docs/api.md"
   },
   "engines": {

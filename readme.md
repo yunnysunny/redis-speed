@@ -2,6 +2,23 @@
 
 An utility for redis aim to improve the performance of redis, it includes `FlashCacheRedis` now.
 
+[![build status][travis-image]][travis-url]
+[![Test coverage][coveralls-image]][coveralls-url]
+[![David deps][david-image]][david-url]
+[![node version][node-image]][node-url]
+
+[npm-url]: https://npmjs.org/package/redis-speed
+[travis-image]: https://img.shields.io/travis/yunnysunny/redis-speed.svg?style=flat-square
+[travis-url]: https://travis-ci.org/yunnysunny/redis-speed
+[coveralls-image]: https://img.shields.io/coveralls/yunnysunny/redis-speed.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/yunnysunny/redis-speed?branch=master
+[david-image]: https://img.shields.io/david/yunnysunny/redis-speed.svg?style=flat-square
+[david-url]: https://david-dm.org/yunnysunny/redis-speed
+[node-image]: https://img.shields.io/badge/node.js-%3E=_6-green.svg?style=flat-square
+[node-url]: http://nodejs.org/download/
+
+[![NPM](https://nodei.co/npm/redis-speed.png?downloads=true)](https://nodei.co/npm/redis-speed/) 
+
 ## FlashCacheRedis  
 
 Save value in memory to reduce the frequency of reading redis.

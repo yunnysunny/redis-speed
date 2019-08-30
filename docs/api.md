@@ -10,6 +10,13 @@
 </dd>
 </dl>
 
+## Objects
+
+<dl>
+<dt><a href="#redisBatchCmd">redisBatchCmd</a> : <code>object</code></dt>
+<dd></dd>
+</dl>
+
 ## Functions
 
 <dl>
@@ -75,6 +82,72 @@ Do redis requests in parallel, it will continue even if one of request fails.
 The empty function to help you to insert empty operation among normal operation.
 
 **Kind**: static constant of [<code>RedisHelper</code>](#RedisHelper)  
+<a name="redisBatchCmd"></a>
+
+## redisBatchCmd : <code>object</code>
+**Kind**: global namespace  
+
+* [redisBatchCmd](#redisBatchCmd) : <code>object</code>
+    * [.RedisBatchCmd](#redisBatchCmd.RedisBatchCmd)
+        * [new RedisBatchCmd()](#new_redisBatchCmd.RedisBatchCmd_new)
+    * [.exports.BatchZincrby](#redisBatchCmd.exports.BatchZincrby)
+    * [.exports.BatchHincr](#redisBatchCmd.exports.BatchHincr)
+    * [.EVENT_ONE_LOOP_FINISHED](#redisBatchCmd.EVENT_ONE_LOOP_FINISHED) : <code>String</code>
+    * [.EVENT_SEND_ERROR](#redisBatchCmd.EVENT_SEND_ERROR) : <code>String</code>
+    * [.EVENT_EXPIRE_ERROR](#redisBatchCmd.EVENT_EXPIRE_ERROR) : <code>String</code>
+    * [.BatchOption](#redisBatchCmd.BatchOption)
+
+<a name="redisBatchCmd.RedisBatchCmd"></a>
+
+### redisBatchCmd.RedisBatchCmd
+**Kind**: static class of [<code>redisBatchCmd</code>](#redisBatchCmd)  
+<a name="new_redisBatchCmd.RedisBatchCmd_new"></a>
+
+#### new RedisBatchCmd()
+The class for sending batch redis commands.
+
+<a name="redisBatchCmd.exports.BatchZincrby"></a>
+
+### redisBatchCmd.exports.BatchZincrby
+The utility class to send zincr command in batch.
+
+**Kind**: static class of [<code>redisBatchCmd</code>](#redisBatchCmd)  
+<a name="redisBatchCmd.exports.BatchHincr"></a>
+
+### redisBatchCmd.exports.BatchHincr
+The utility class to send hincr command in batch.
+
+**Kind**: static class of [<code>redisBatchCmd</code>](#redisBatchCmd)  
+<a name="redisBatchCmd.EVENT_ONE_LOOP_FINISHED"></a>
+
+### redisBatchCmd.EVENT\_ONE\_LOOP\_FINISHED : <code>String</code>
+The event triggered when send a batch of commands finish.
+
+**Kind**: static constant of [<code>redisBatchCmd</code>](#redisBatchCmd)  
+<a name="redisBatchCmd.EVENT_SEND_ERROR"></a>
+
+### redisBatchCmd.EVENT\_SEND\_ERROR : <code>String</code>
+The event tirggered when send command to redis fail.
+
+**Kind**: static constant of [<code>redisBatchCmd</code>](#redisBatchCmd)  
+<a name="redisBatchCmd.EVENT_EXPIRE_ERROR"></a>
+
+### redisBatchCmd.EVENT\_EXPIRE\_ERROR : <code>String</code>
+The event triggered when set expire time fail.
+
+**Kind**: static constant of [<code>redisBatchCmd</code>](#redisBatchCmd)  
+<a name="redisBatchCmd.BatchOption"></a>
+
+### redisBatchCmd.BatchOption
+**Kind**: static typedef of [<code>redisBatchCmd</code>](#redisBatchCmd)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| redisClient | <code>Object</code> |  | The instance of ioredis client. |
+| cmd | <code>String</code> |  | The name of redis command. |
+| [loopInterval] | <code>Number</code> | <code>200</code> | The milliseconds of the interval to send a batch of commands. |
+| [expireTime] | <code>Number</code> |  | The seconds used to set the redis key. |
+
 <a name="ParallelArrayCallback"></a>
 
 ## ParallelArrayCallback(allDone, results)

@@ -76,6 +76,43 @@ redisHelper.doParallelJobs(tasks,function(none,[[err1],[err2]]) {
 });
 ```
 
+## redisBatchCmd
+An utility class to send redis command in batch.
+
+### Usage
+
+```javascript
+const {
+    redisBatchCmd: {
+        EVENT_ONE_LOOP_FINISHED,
+        EVENT_SEND_ERROR,
+        BatchHincr,
+        BatchZincrby
+    }
+} = require('redis-speed');
+const redisClient = new Redis();//connect to the redis server of localhost:6379
+
+const LOOP_COUNT = 100;
+const INTERVAL = 200;
+const cmd = new BatchHincr({redisClient,loopInterval:INTERVAL});
+const key = ('test:' + Math.random()).replace('.','');
+cmd.on(EVENT_ONE_LOOP_FINISHED,function() {
+    redisClient.hget(key,'name',function(err,reply) {
+        if (err) {
+            return console.error(err);
+        }
+        expect(Number(reply)).to.be.equal(LOOP_COUNT);
+    });
+});
+cmd.on(EVENT_SEND_ERROR,function(err) {
+    console.error(err);
+});
+
+for(var i=0;i<LOOP_COUNT;i++) {
+    cmd.addData(key,1,'name');
+}
+```
+
 
 ## API
 [api](docs/api.md)

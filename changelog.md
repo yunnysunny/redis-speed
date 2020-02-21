@@ -1,3 +1,7 @@
+# v0.4.0
+## Add
+1. Add the utility of `redisBatchIncr`, deprecate the `redisBatchCmd`.
+
 # v0.3.0
 ## Add
 1. Add some utility classes to send redis commands in batch way.

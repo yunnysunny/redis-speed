@@ -76,14 +76,14 @@ redisHelper.doParallelJobs(tasks,function(none,[[err1],[err2]]) {
 });
 ```
 
-## redisBatchCmd
+## redisBatchIncr
 An utility class to send redis command in batch.
 
 ### Usage
 
 ```javascript
 const {
-    redisBatchCmd: {
+    redisBatchIncr: {
         EVENT_ONE_LOOP_FINISHED,
         EVENT_SEND_ERROR,
         BatchHincr,

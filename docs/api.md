@@ -13,7 +13,9 @@
 ## Objects
 
 <dl>
-<dt><a href="#redisBatchCmd">redisBatchCmd</a> : <code>object</code></dt>
+<dt><del><a href="#redisBatchCmd">redisBatchCmd</a> : <code>object</code></del></dt>
+<dd></dd>
+<dt><a href="#RedisBatchIncr">RedisBatchIncr</a> : <code>object</code></dt>
 <dd></dd>
 </dl>
 
@@ -84,10 +86,12 @@ The empty function to help you to insert empty operation among normal operation.
 **Kind**: static constant of [<code>RedisHelper</code>](#RedisHelper)  
 <a name="redisBatchCmd"></a>
 
-## redisBatchCmd : <code>object</code>
+## ~~redisBatchCmd : <code>object</code>~~
+***Deprecated***
+
 **Kind**: global namespace  
 
-* [redisBatchCmd](#redisBatchCmd) : <code>object</code>
+* ~~[redisBatchCmd](#redisBatchCmd) : <code>object</code>~~
     * [.RedisBatchCmd](#redisBatchCmd.RedisBatchCmd)
         * [new RedisBatchCmd()](#new_redisBatchCmd.RedisBatchCmd_new)
     * [.exports.BatchZincrby](#redisBatchCmd.exports.BatchZincrby)
@@ -140,6 +144,128 @@ The event triggered when set expire time fail.
 
 ### redisBatchCmd.BatchOption
 **Kind**: static typedef of [<code>redisBatchCmd</code>](#redisBatchCmd)  
+
+| Param | Type | Default | Description |
+| --- | --- | --- | --- |
+| redisClient | <code>Object</code> |  | The instance of ioredis client. |
+| cmd | <code>String</code> |  | The name of redis command. |
+| [loopInterval] | <code>Number</code> | <code>200</code> | The milliseconds of the interval to send a batch of commands. |
+| [expireTime] | <code>Number</code> |  | The seconds used to set the redis key. |
+
+<a name="RedisBatchIncr"></a>
+
+## RedisBatchIncr : <code>object</code>
+**Kind**: global namespace  
+
+* [RedisBatchIncr](#RedisBatchIncr) : <code>object</code>
+    * _instance_
+        * [.RedisBatchIncr](#RedisBatchIncr+RedisBatchIncr)
+            * [new exports.RedisBatchIncr(option)](#new_RedisBatchIncr+RedisBatchIncr_new)
+            * [.addData(key, score, value)](#RedisBatchIncr+RedisBatchIncr+addData)
+        * ["EVENT_SEND_ERROR"](#RedisBatchIncr+event_EVENT_SEND_ERROR)
+        * ["EVENT_ONE_LOOP_FINISHED"](#RedisBatchIncr+event_EVENT_ONE_LOOP_FINISHED)
+        * ["EVENT_EXPIRE_ERROR"](#RedisBatchIncr+event_EVENT_EXPIRE_ERROR)
+    * _static_
+        * [.RedisBatchIncr](#RedisBatchIncr.RedisBatchIncr)
+            * [new RedisBatchIncr()](#new_RedisBatchIncr.RedisBatchIncr_new)
+        * [.exports.BatchZincrby](#RedisBatchIncr.exports.BatchZincrby)
+        * [.exports.BatchHincr](#RedisBatchIncr.exports.BatchHincr)
+        * [.EVENT_ONE_LOOP_FINISHED](#RedisBatchIncr.EVENT_ONE_LOOP_FINISHED) : <code>String</code>
+        * [.EVENT_SEND_ERROR](#RedisBatchIncr.EVENT_SEND_ERROR) : <code>String</code>
+        * [.EVENT_EXPIRE_ERROR](#RedisBatchIncr.EVENT_EXPIRE_ERROR) : <code>String</code>
+        * [.BatchOption](#RedisBatchIncr.BatchOption)
+
+<a name="RedisBatchIncr+RedisBatchIncr"></a>
+
+### redisBatchIncr.RedisBatchIncr
+**Kind**: instance class of [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
+
+* [.RedisBatchIncr](#RedisBatchIncr+RedisBatchIncr)
+    * [new exports.RedisBatchIncr(option)](#new_RedisBatchIncr+RedisBatchIncr_new)
+    * [.addData(key, score, value)](#RedisBatchIncr+RedisBatchIncr+addData)
+
+<a name="new_RedisBatchIncr+RedisBatchIncr_new"></a>
+
+#### new exports.RedisBatchIncr(option)
+The constructor of RedisBatchIncr
+
+
+| Param | Type |
+| --- | --- |
+| option | <code>BatchOption</code> | 
+
+<a name="RedisBatchIncr+RedisBatchIncr+addData"></a>
+
+#### redisBatchIncr.addData(key, score, value)
+Add data to interval map.
+
+**Kind**: instance method of [<code>RedisBatchIncr</code>](#RedisBatchIncr+RedisBatchIncr)  
+
+| Param | Type |
+| --- | --- |
+| key | <code>String</code> | 
+| score | <code>Number</code> | 
+| value | <code>String</code> | 
+
+<a name="RedisBatchIncr+event_EVENT_SEND_ERROR"></a>
+
+### "EVENT_SEND_ERROR"
+err
+
+**Kind**: event emitted by [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
+<a name="RedisBatchIncr+event_EVENT_ONE_LOOP_FINISHED"></a>
+
+### "EVENT_ONE_LOOP_FINISHED"
+**Kind**: event emitted by [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
+<a name="RedisBatchIncr+event_EVENT_EXPIRE_ERROR"></a>
+
+### "EVENT_EXPIRE_ERROR"
+err
+
+**Kind**: event emitted by [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
+<a name="RedisBatchIncr.RedisBatchIncr"></a>
+
+### RedisBatchIncr.RedisBatchIncr
+**Kind**: static class of [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
+<a name="new_RedisBatchIncr.RedisBatchIncr_new"></a>
+
+#### new RedisBatchIncr()
+The class for sending batch redis commands.
+
+<a name="RedisBatchIncr.exports.BatchZincrby"></a>
+
+### RedisBatchIncr.exports.BatchZincrby
+The utility class to send zincr command in batch.
+
+**Kind**: static class of [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
+<a name="RedisBatchIncr.exports.BatchHincr"></a>
+
+### RedisBatchIncr.exports.BatchHincr
+The utility class to send hincr command in batch.
+
+**Kind**: static class of [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
+<a name="RedisBatchIncr.EVENT_ONE_LOOP_FINISHED"></a>
+
+### RedisBatchIncr.EVENT\_ONE\_LOOP\_FINISHED : <code>String</code>
+The event triggered when send a batch of commands finish.
+
+**Kind**: static constant of [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
+<a name="RedisBatchIncr.EVENT_SEND_ERROR"></a>
+
+### RedisBatchIncr.EVENT\_SEND\_ERROR : <code>String</code>
+The event tirggered when send command to redis fail.
+
+**Kind**: static constant of [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
+<a name="RedisBatchIncr.EVENT_EXPIRE_ERROR"></a>
+
+### RedisBatchIncr.EVENT\_EXPIRE\_ERROR : <code>String</code>
+The event triggered when set expire time fail.
+
+**Kind**: static constant of [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
+<a name="RedisBatchIncr.BatchOption"></a>
+
+### RedisBatchIncr.BatchOption
+**Kind**: static typedef of [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
 
 | Param | Type | Default | Description |
 | --- | --- | --- | --- |

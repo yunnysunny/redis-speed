@@ -16,9 +16,13 @@ const LOOP_COUNT = 100;
 const INTERVAL = 200;
 describe('batch incr test', function() {
     it('hincr single memeber in single key',function(done) {
-        const cmd = new BatchHincr({redisClient,loopInterval:INTERVAL});
         const key = ('test:' + Math.random()).replace('.','');
-        cmd.on(EVENT_ONE_LOOP_FINISHED,function() {
+        const cmd = new BatchHincr({redisClient,loopInterval:INTERVAL,key});
+        
+        cmd.on(EVENT_ONE_LOOP_FINISHED,function(len) {
+            if (len !== 1) {
+                return;
+            }
             redisClient.hget(key,'name',function(err,reply) {
                 if (err) {
                     return done(err);
@@ -32,15 +36,19 @@ describe('batch incr test', function() {
         });
         
         for(var i=0;i<LOOP_COUNT;i++) {
-            cmd.addData(key,1,'name');
+            cmd.addData(1,'name');
         }
 
     });
 
     it('hincr multiple memebers in single key',function(done) {
-        const cmd = new BatchHincr({redisClient,loopInterval:INTERVAL});
         const key = ('test:' + Math.random()).replace('.','');
-        cmd.on(EVENT_ONE_LOOP_FINISHED,function() {
+        const cmd = new BatchHincr({redisClient,loopInterval:INTERVAL,key});
+        
+        cmd.on(EVENT_ONE_LOOP_FINISHED,function(len) {
+            if (len !== LOOP_COUNT) {
+                return;
+            }
             async.times(LOOP_COUNT,function(index,next) {
                 redisClient.hget(key,'name'+index,function(err,reply) {
                     if (err) {
@@ -56,16 +64,20 @@ describe('batch incr test', function() {
         });
        
         for(var i=0;i<LOOP_COUNT;i++) {
-            cmd.addData(key,1,'name'+i);
+            cmd.addData(1,'name'+i);
         }
     });
 
     it('hincr multiple members of multiple keys',function(done) {
-        const cmd = new BatchHincr({redisClient,loopInterval:INTERVAL});
         const key = ('test:' + Math.random()).replace('.','');
+        const cmd = new BatchHincr({redisClient,loopInterval:INTERVAL,key});
+        
         const INNER_LOOP_COUNT = 10;
         const SCORE = 3;
-        cmd.on(EVENT_ONE_LOOP_FINISHED,function() {
+        cmd.on(EVENT_ONE_LOOP_FINISHED,function(len) {
+            if (len !== LOOP_COUNT) {
+                return;
+            }
             async.times(LOOP_COUNT,function(index,next) {
                 redisClient.hget(key,'name'+index,function(err,reply) {
                     if (err) {
@@ -82,15 +94,19 @@ describe('batch incr test', function() {
        
         for(var i=0;i<LOOP_COUNT;i++) {
             for (var j=0;j<INNER_LOOP_COUNT;j++) {
-                cmd.addData(key,SCORE,'name'+i);
+                cmd.addData(SCORE,'name'+i);
             }
         }
     });
 
     it('zincr single memeber in single key',function(done) {
-        const cmd = new BatchZincrby({redisClient,loopInterval:INTERVAL});
         const key = ('test:' + Math.random()).replace('.','');
-        cmd.on(EVENT_ONE_LOOP_FINISHED,function() {
+        const cmd = new BatchZincrby({redisClient,loopInterval:INTERVAL,key});
+        
+        cmd.on(EVENT_ONE_LOOP_FINISHED,function(len) {
+            if (len !== 1) {
+                return;
+            }
             redisClient.zscore(key,'name',function(err,reply) {
                 if (err) {
                     return done(err);
@@ -104,15 +120,19 @@ describe('batch incr test', function() {
         });
         
         for(var i=0;i<LOOP_COUNT;i++) {
-            cmd.addData(key,1,'name');
+            cmd.addData(1,'name');
         }
 
     });
 
     it('zincr multiple members in single key',function(done) {
-        const cmd = new BatchZincrby({redisClient,loopInterval:INTERVAL});
         const key = ('test:' + Math.random()).replace('.','');
-        cmd.on(EVENT_ONE_LOOP_FINISHED,function() {
+        const cmd = new BatchZincrby({redisClient,loopInterval:INTERVAL,key});
+        
+        cmd.on(EVENT_ONE_LOOP_FINISHED,function(len) {
+            if (len !== LOOP_COUNT) {
+                return;
+            }
             async.times(LOOP_COUNT,function(index,next) {
                 redisClient.zscore(key,'name'+index,function(err,reply) {
                     if (err) {
@@ -128,17 +148,21 @@ describe('batch incr test', function() {
         });
        
         for(var i=0;i<LOOP_COUNT;i++) {
-            cmd.addData(key,1,'name'+i);
+            cmd.addData(1,'name'+i);
         }
     });
 
     it('zincr multiple members of multiple keys',function(done) {
-        const cmd = new BatchZincrby({redisClient,loopInterval:INTERVAL});
         const key = ('test:' + Math.random()).replace('.','');
+        const cmd = new BatchZincrby({redisClient,loopInterval:INTERVAL,key});
+        
         
         const INNER_LOOP_COUNT = 10;
         const SCORE = 3;
-        cmd.on(EVENT_ONE_LOOP_FINISHED,function() {
+        cmd.on(EVENT_ONE_LOOP_FINISHED,function(len) {
+            if (len !== LOOP_COUNT) {
+                return;
+            }
             async.times(LOOP_COUNT,function(index,next) {
                 redisClient.zscore(key,'name'+index,function(err,reply) {
                     if (err) {
@@ -155,7 +179,7 @@ describe('batch incr test', function() {
        
         for(var i=0;i<LOOP_COUNT;i++) {
             for (var j=0;j<INNER_LOOP_COUNT;j++) {
-                cmd.addData(key,SCORE,'name'+i);
+                cmd.addData(SCORE,'name'+i);
             }
         }
     });

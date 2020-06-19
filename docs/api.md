@@ -216,6 +216,8 @@ err
 <a name="RedisBatchIncr+event_EVENT_ONE_LOOP_FINISHED"></a>
 
 ### "EVENT_ONE_LOOP_FINISHED"
+len The length of members
+
 **Kind**: event emitted by [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
 <a name="RedisBatchIncr+event_EVENT_EXPIRE_ERROR"></a>
 

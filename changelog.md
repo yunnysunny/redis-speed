@@ -1,3 +1,8 @@
+# v1.0.0
+## Breaking changes
+1. Remove the utility of `redisBatchCmd`.
+2. You should give the key to the utility of `redisBatchIncr` when initial it.
+
 # v0.4.0
 ## Add
 1. Add the utility of `redisBatchIncr`, deprecate the `redisBatchCmd`.

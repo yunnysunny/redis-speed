@@ -94,8 +94,9 @@ const redisClient = new Redis();//connect to the redis server of localhost:6379
 
 const LOOP_COUNT = 100;
 const INTERVAL = 200;
-const cmd = new BatchHincr({redisClient,loopInterval:INTERVAL});
 const key = ('test:' + Math.random()).replace('.','');
+const cmd = new BatchHincr({redisClient,loopInterval:INTERVAL,key});
+
 cmd.on(EVENT_ONE_LOOP_FINISHED,function() {
     redisClient.hget(key,'name',function(err,reply) {
         if (err) {

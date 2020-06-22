@@ -110,7 +110,7 @@ cmd.on(EVENT_SEND_ERROR,function(err) {
 });
 
 for(var i=0;i<LOOP_COUNT;i++) {
-    cmd.addData(key,1,'name');
+    cmd.addData(1,'name');
 }
 ```
 

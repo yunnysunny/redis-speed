@@ -114,6 +114,44 @@ for(var i=0;i<LOOP_COUNT;i++) {
 }
 ```
 
+## redisMultiBatchIncr
+
+An utility class to send  redis command in batch with multiple keys.
+
+### Usage
+```javascript
+const {
+    redisMultiBatchIncr: {
+        EVENT_ONE_LOOP_FINISHED,
+        EVENT_SEND_ERROR,
+        BatchMultiHincr,
+        BatchMultiZincrby
+    }
+} = require('redis-speed');
+const redisClient = new Redis();//connect to the redis server of localhost:6379
+
+const LOOP_COUNT = 100;
+const INTERVAL = 200;
+
+const cmd = new BatchMultiHincr({redisClient,loopInterval:INTERVAL});
+const key = ('test:' + Math.random()).replace('.','');
+cmd.on(EVENT_ONE_LOOP_FINISHED,function() {
+    redisClient.hget(key,'name',function(err,reply) {
+        if (err) {
+            return done(err);
+        }
+        expect(Number(reply)).to.be.equal(LOOP_COUNT);
+        done();
+    });
+});
+cmd.on(EVENT_SEND_ERROR,function(err) {
+    done(err);
+});
+
+for(var i=0;i<LOOP_COUNT;i++) {
+    cmd.addData(key,1,'name');
+}
+```
 
 ## API
 [api](docs/api.md)

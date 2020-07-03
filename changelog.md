@@ -1,3 +1,7 @@
+# v1.1.0
+## Add
+1. Add the utility of `BatchMultiHincr`.
+
 # v1.0.0
 ## Breaking changes
 1. Remove the utility of `redisBatchCmd`.

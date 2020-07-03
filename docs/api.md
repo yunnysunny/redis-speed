@@ -21,6 +21,8 @@
 <dl>
 <dt><a href="#RedisBatchIncr">RedisBatchIncr</a> : <code>object</code></dt>
 <dd></dd>
+<dt><a href="#redisMultiBatchIncr">redisMultiBatchIncr</a> : <code>object</code></dt>
+<dd></dd>
 </dl>
 
 ## Functions
@@ -35,7 +37,9 @@
 <a name="FlashCachRedis"></a>
 
 ## FlashCachRedis
-FlashCachRedisA tool that cache the data in memory to reduce the frequency of reading redis. It use the package of [flash-cache](https://www.npmjs.com/package/flash-cache) inside.
+FlashCachRedis
+
+A tool that cache the data in memory to reduce the frequency of reading redis. It use the package of [flash-cache](https://www.npmjs.com/package/flash-cache) inside.
 
 **Kind**: global class  
 **Properties**
@@ -56,7 +60,20 @@ FlashCachRedisA tool that cache the data in memory to reduce the frequency of 
 | [option.useYoungOnly] | <code>Boolean</code> |  | Whether only reading the data from young area , it will passed to the instance of `FlashCache`. |
 
 **Example**  
-```javascriptconst {FlashCacheRedis} = require('redis-speed');const Redis = require('ioredis');const redisClient = new Redis();//connect to the redis server of localhost:6379const {cacheQueryAdapter} = new FlashCacheRedis({   redisClient,//the redis client object   interval:1000});const KEY = 'flash_cache_redis:basic';const VALUE = {name:'sunny',id:1};//First query the `key` in memory, if not have, query in redis. cacheQueryAdapter.get(key,function(err,reply) {});```
+```javascript
+const {FlashCacheRedis} = require('redis-speed');
+const Redis = require('ioredis');
+const redisClient = new Redis();//connect to the redis server of localhost:6379
+const {cacheQueryAdapter} = new FlashCacheRedis({
+   redisClient,//the redis client object
+   interval:1000
+});
+const KEY = 'flash_cache_redis:basic';
+const VALUE = {name:'sunny',id:1};
+
+//First query the `key` in memory, if not have, query in redis. 
+cacheQueryAdapter.get(key,function(err,reply) {});
+```
 <a name="BatchZincrby"></a>
 
 ## BatchZincrby ⇐ [<code>RedisBatchIncr</code>](#RedisBatchIncr)
@@ -84,7 +101,7 @@ The constructor of RedisBatchIncr
 
 | Param | Type |
 | --- | --- |
-| option | <code>BatchOption</code> | 
+| option | <code>BatchOption</code> |
 
 <a name="RedisBatchIncr+event_EVENT_SEND_ERROR"></a>
 
@@ -92,18 +109,21 @@ The constructor of RedisBatchIncr
 err
 
 **Kind**: event emitted by [<code>BatchZincrby</code>](#BatchZincrby)  
+**Overrides**: [<code>EVENT\_SEND\_ERROR</code>](#RedisBatchIncr+event_EVENT_SEND_ERROR)  
 <a name="RedisBatchIncr+event_EVENT_ONE_LOOP_FINISHED"></a>
 
 ### "EVENT_ONE_LOOP_FINISHED"
 len The length of members
 
 **Kind**: event emitted by [<code>BatchZincrby</code>](#BatchZincrby)  
+**Overrides**: [<code>EVENT\_ONE\_LOOP\_FINISHED</code>](#RedisBatchIncr+event_EVENT_ONE_LOOP_FINISHED)  
 <a name="RedisBatchIncr+event_EVENT_EXPIRE_ERROR"></a>
 
 ### "EVENT_EXPIRE_ERROR"
 err
 
 **Kind**: event emitted by [<code>BatchZincrby</code>](#BatchZincrby)  
+**Overrides**: [<code>EVENT\_EXPIRE\_ERROR</code>](#RedisBatchIncr+event_EVENT_EXPIRE_ERROR)  
 <a name="BatchHincr"></a>
 
 ## BatchHincr ⇐ [<code>RedisBatchIncr</code>](#RedisBatchIncr)
@@ -131,7 +151,7 @@ The constructor of RedisBatchIncr
 
 | Param | Type |
 | --- | --- |
-| option | <code>BatchOption</code> | 
+| option | <code>BatchOption</code> |
 
 <a name="RedisBatchIncr+event_EVENT_SEND_ERROR"></a>
 
@@ -139,18 +159,21 @@ The constructor of RedisBatchIncr
 err
 
 **Kind**: event emitted by [<code>BatchHincr</code>](#BatchHincr)  
+**Overrides**: [<code>EVENT\_SEND\_ERROR</code>](#RedisBatchIncr+event_EVENT_SEND_ERROR)  
 <a name="RedisBatchIncr+event_EVENT_ONE_LOOP_FINISHED"></a>
 
 ### "EVENT_ONE_LOOP_FINISHED"
 len The length of members
 
 **Kind**: event emitted by [<code>BatchHincr</code>](#BatchHincr)  
+**Overrides**: [<code>EVENT\_ONE\_LOOP\_FINISHED</code>](#RedisBatchIncr+event_EVENT_ONE_LOOP_FINISHED)  
 <a name="RedisBatchIncr+event_EVENT_EXPIRE_ERROR"></a>
 
 ### "EVENT_EXPIRE_ERROR"
 err
 
 **Kind**: event emitted by [<code>BatchHincr</code>](#BatchHincr)  
+**Overrides**: [<code>EVENT\_EXPIRE\_ERROR</code>](#RedisBatchIncr+event_EVENT_EXPIRE_ERROR)  
 <a name="RedisHelper"></a>
 
 ## RedisHelper
@@ -195,6 +218,9 @@ The empty function to help you to insert empty operation among normal operation.
         * ["EVENT_SEND_ERROR"](#RedisBatchIncr+event_EVENT_SEND_ERROR)
         * ["EVENT_ONE_LOOP_FINISHED"](#RedisBatchIncr+event_EVENT_ONE_LOOP_FINISHED)
         * ["EVENT_EXPIRE_ERROR"](#RedisBatchIncr+event_EVENT_EXPIRE_ERROR)
+        * ["EVENT_SEND_ERROR"](#RedisBatchIncr+event_EVENT_SEND_ERROR)
+        * ["EVENT_ONE_LOOP_FINISHED"](#RedisBatchIncr+event_EVENT_ONE_LOOP_FINISHED)
+        * ["EVENT_EXPIRE_ERROR"](#RedisBatchIncr+event_EVENT_EXPIRE_ERROR)
     * _static_
         * [.RedisBatchIncr](#RedisBatchIncr.RedisBatchIncr)
             * [new RedisBatchIncr()](#new_RedisBatchIncr.RedisBatchIncr_new)
@@ -220,7 +246,7 @@ The constructor of RedisBatchIncr
 
 | Param | Type |
 | --- | --- |
-| option | <code>BatchOption</code> | 
+| option | <code>BatchOption</code> |
 
 <a name="RedisBatchIncr+RedisBatchIncr+addData"></a>
 
@@ -231,9 +257,9 @@ Add data to interval map.
 
 | Param | Type |
 | --- | --- |
-| key | <code>String</code> | 
-| score | <code>Number</code> | 
-| value | <code>String</code> | 
+| key | <code>String</code> |
+| score | <code>Number</code> |
+| value | <code>String</code> |
 
 <a name="RedisBatchIncr+event_EVENT_SEND_ERROR"></a>
 
@@ -246,6 +272,22 @@ err
 ### "EVENT_ONE_LOOP_FINISHED"
 len The length of members
 
+**Kind**: event emitted by [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
+<a name="RedisBatchIncr+event_EVENT_EXPIRE_ERROR"></a>
+
+### "EVENT_EXPIRE_ERROR"
+err
+
+**Kind**: event emitted by [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
+<a name="RedisBatchIncr+event_EVENT_SEND_ERROR"></a>
+
+### "EVENT_SEND_ERROR"
+err
+
+**Kind**: event emitted by [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
+<a name="RedisBatchIncr+event_EVENT_ONE_LOOP_FINISHED"></a>
+
+### "EVENT_ONE_LOOP_FINISHED"
 **Kind**: event emitted by [<code>RedisBatchIncr</code>](#RedisBatchIncr)  
 <a name="RedisBatchIncr+event_EVENT_EXPIRE_ERROR"></a>
 
@@ -292,6 +334,127 @@ The event triggered when set expire time fail.
 | [loopInterval] | <code>Number</code> | <code>200</code> | The milliseconds of the interval to send a batch of commands. |
 | [expireTime] | <code>Number</code> |  | The seconds used to set the redis key. |
 
+<a name="redisMultiBatchIncr"></a>
+
+## redisMultiBatchIncr : <code>object</code>
+**Kind**: global namespace  
+
+* [redisMultiBatchIncr](#redisMultiBatchIncr) : <code>object</code>
+    * *[.RedisMultiBatchIncr](#redisMultiBatchIncr.RedisMultiBatchIncr)*
+        * *[new RedisMultiBatchIncr()](#new_redisMultiBatchIncr.RedisMultiBatchIncr_new)*
+    * [.BatchMultiZincrby](#redisMultiBatchIncr.BatchMultiZincrby) ⇐ <code>RedisMultiBatchIncr</code>
+        * [new BatchMultiZincrby()](#new_redisMultiBatchIncr.BatchMultiZincrby_new)
+        * [.RedisMultiBatchIncr](#RedisMultiBatchIncr+RedisMultiBatchIncr)
+            * [new exports.RedisMultiBatchIncr(option)](#new_redisMultiBatchIncr.BatchMultiZincrby+RedisMultiBatchIncr_new)
+    * [.BatchMultiHincr](#redisMultiBatchIncr.BatchMultiHincr) ⇐ <code>RedisMultiBatchIncr</code>
+        * [new BatchMultiHincr()](#new_redisMultiBatchIncr.BatchMultiHincr_new)
+        * [.RedisMultiBatchIncr](#RedisMultiBatchIncr+RedisMultiBatchIncr)
+            * [new exports.RedisMultiBatchIncr(option)](#new_redisMultiBatchIncr.BatchMultiHincr+RedisMultiBatchIncr_new)
+    * [.EVENT_ONE_LOOP_FINISHED](#redisMultiBatchIncr.EVENT_ONE_LOOP_FINISHED) : <code>String</code>
+    * [.EVENT_SEND_ERROR](#redisMultiBatchIncr.EVENT_SEND_ERROR) : <code>String</code>
+    * [.EVENT_EXPIRE_ERROR](#redisMultiBatchIncr.EVENT_EXPIRE_ERROR) : <code>String</code>
+    * [.BatchOption](#redisMultiBatchIncr.BatchOption)
+
+<a name="redisMultiBatchIncr.RedisMultiBatchIncr"></a>
+
+### *redisMultiBatchIncr.RedisMultiBatchIncr*
+**Kind**: static abstract class of [<code>redisMultiBatchIncr</code>](#redisMultiBatchIncr)  
+<a name="new_redisMultiBatchIncr.RedisMultiBatchIncr_new"></a>
+
+#### *new RedisMultiBatchIncr()*
+The class for sending batch redis commands.
+
+<a name="redisMultiBatchIncr.BatchMultiZincrby"></a>
+
+### redisMultiBatchIncr.BatchMultiZincrby ⇐ <code>RedisMultiBatchIncr</code>
+**Kind**: static class of [<code>redisMultiBatchIncr</code>](#redisMultiBatchIncr)  
+**Extends**: <code>RedisMultiBatchIncr</code>  
+
+* [.BatchMultiZincrby](#redisMultiBatchIncr.BatchMultiZincrby) ⇐ <code>RedisMultiBatchIncr</code>
+    * [new BatchMultiZincrby()](#new_redisMultiBatchIncr.BatchMultiZincrby_new)
+    * [.RedisMultiBatchIncr](#RedisMultiBatchIncr+RedisMultiBatchIncr)
+        * [new exports.RedisMultiBatchIncr(option)](#new_redisMultiBatchIncr.BatchMultiZincrby+RedisMultiBatchIncr_new)
+
+<a name="new_redisMultiBatchIncr.BatchMultiZincrby_new"></a>
+
+#### new BatchMultiZincrby()
+The utility class to send zincr command in batch.
+
+<a name="RedisMultiBatchIncr+RedisMultiBatchIncr"></a>
+
+#### batchMultiZincrby.RedisMultiBatchIncr
+**Kind**: instance class of [<code>BatchMultiZincrby</code>](#redisMultiBatchIncr.BatchMultiZincrby)  
+<a name="new_redisMultiBatchIncr.BatchMultiZincrby+RedisMultiBatchIncr_new"></a>
+
+##### new exports.RedisMultiBatchIncr(option)
+The constructor of RedisBatchIncr
+
+
+| Param | Type |
+| --- | --- |
+| option | <code>BatchOption</code> |
+
+<a name="redisMultiBatchIncr.BatchMultiHincr"></a>
+
+### redisMultiBatchIncr.BatchMultiHincr ⇐ <code>RedisMultiBatchIncr</code>
+**Kind**: static class of [<code>redisMultiBatchIncr</code>](#redisMultiBatchIncr)  
+**Extends**: <code>RedisMultiBatchIncr</code>  
+
+* [.BatchMultiHincr](#redisMultiBatchIncr.BatchMultiHincr) ⇐ <code>RedisMultiBatchIncr</code>
+    * [new BatchMultiHincr()](#new_redisMultiBatchIncr.BatchMultiHincr_new)
+    * [.RedisMultiBatchIncr](#RedisMultiBatchIncr+RedisMultiBatchIncr)
+        * [new exports.RedisMultiBatchIncr(option)](#new_redisMultiBatchIncr.BatchMultiHincr+RedisMultiBatchIncr_new)
+
+<a name="new_redisMultiBatchIncr.BatchMultiHincr_new"></a>
+
+#### new BatchMultiHincr()
+The utility class to send hincr command in batch.
+
+<a name="RedisMultiBatchIncr+RedisMultiBatchIncr"></a>
+
+#### batchMultiHincr.RedisMultiBatchIncr
+**Kind**: instance class of [<code>BatchMultiHincr</code>](#redisMultiBatchIncr.BatchMultiHincr)  
+<a name="new_redisMultiBatchIncr.BatchMultiHincr+RedisMultiBatchIncr_new"></a>
+
+##### new exports.RedisMultiBatchIncr(option)
+The constructor of RedisBatchIncr
+
+
+| Param | Type |
+| --- | --- |
+| option | <code>BatchOption</code> |
+
+<a name="redisMultiBatchIncr.EVENT_ONE_LOOP_FINISHED"></a>
+
+### redisMultiBatchIncr.EVENT\_ONE\_LOOP\_FINISHED : <code>String</code>
+The event triggered when send a batch of commands finish.
+
+**Kind**: static constant of [<code>redisMultiBatchIncr</code>](#redisMultiBatchIncr)  
+<a name="redisMultiBatchIncr.EVENT_SEND_ERROR"></a>
+
+### redisMultiBatchIncr.EVENT\_SEND\_ERROR : <code>String</code>
+The event tirggered when send command to redis fail.
+
+**Kind**: static constant of [<code>redisMultiBatchIncr</code>](#redisMultiBatchIncr)  
+<a name="redisMultiBatchIncr.EVENT_EXPIRE_ERROR"></a>
+
+### redisMultiBatchIncr.EVENT\_EXPIRE\_ERROR : <code>String</code>
+The event triggered when set expire time fail.
+
+**Kind**: static constant of [<code>redisMultiBatchIncr</code>](#redisMultiBatchIncr)  
+<a name="redisMultiBatchIncr.BatchOption"></a>
+
+### redisMultiBatchIncr.BatchOption
+**Kind**: static typedef of [<code>redisMultiBatchIncr</code>](#redisMultiBatchIncr)  
+**Properties**
+
+| Name | Type | Default | Description |
+| --- | --- | --- | --- |
+| redisClient | <code>Object</code> |  | The instance of ioredis client. |
+| cmd | <code>String</code> |  | The name of redis command. |
+| [loopInterval] | <code>Number</code> | <code>200</code> | The milliseconds of the interval to send a batch of commands. |
+| [expireTime] | <code>Number</code> |  | The seconds used to set the redis key. |
+
 <a name="ParallelArrayCallback"></a>
 
 ## ParallelArrayCallback(allDone, results)
@@ -300,7 +463,7 @@ The event triggered when set expire time fail.
 | Param | Type | Description |
 | --- | --- | --- |
 | allDone | <code>Boolean</code> | it always be true |
-| results | <code>Array.&lt;ResultArray&gt;</code> |  |
+| results | <code>[ &#x27;Array&#x27; ].&lt;ResultArray&gt;</code> |  |
 
 <a name="ParallelObjectCallback"></a>
 
@@ -310,5 +473,5 @@ The event triggered when set expire time fail.
 | Param | Type | Description |
 | --- | --- | --- |
 | allDone | <code>Boolean</code> | it always be true |
-| results | <code>Object.&lt;String, ResultArray&gt;</code> |  |
+| results | <code>[ &#x27;Object&#x27; ].&lt;String, ResultArray&gt;</code> |  |
 

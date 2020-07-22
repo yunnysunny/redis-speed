@@ -37,9 +37,7 @@
 <a name="FlashCachRedis"></a>
 
 ## FlashCachRedis
-FlashCachRedis
-
-A tool that cache the data in memory to reduce the frequency of reading redis. It use the package of [flash-cache](https://www.npmjs.com/package/flash-cache) inside.
+FlashCachRedisA tool that cache the data in memory to reduce the frequency of reading redis. It use the package of [flash-cache](https://www.npmjs.com/package/flash-cache) inside.
 
 **Kind**: global class  
 **Properties**
@@ -60,20 +58,7 @@ A tool that cache the data in memory to reduce the frequency of reading redis. I
 | [option.useYoungOnly] | <code>Boolean</code> |  | Whether only reading the data from young area , it will passed to the instance of `FlashCache`. |
 
 **Example**  
-```javascript
-const {FlashCacheRedis} = require('redis-speed');
-const Redis = require('ioredis');
-const redisClient = new Redis();//connect to the redis server of localhost:6379
-const {cacheQueryAdapter} = new FlashCacheRedis({
-   redisClient,//the redis client object
-   interval:1000
-});
-const KEY = 'flash_cache_redis:basic';
-const VALUE = {name:'sunny',id:1};
-
-//First query the `key` in memory, if not have, query in redis. 
-cacheQueryAdapter.get(key,function(err,reply) {});
-```
+```javascriptconst {FlashCacheRedis} = require('redis-speed');const Redis = require('ioredis');const redisClient = new Redis();//connect to the redis server of localhost:6379const {cacheQueryAdapter} = new FlashCacheRedis({   redisClient,//the redis client object   interval:1000});const KEY = 'flash_cache_redis:basic';const VALUE = {name:'sunny',id:1};//First query the `key` in memory, if not have, query in redis. cacheQueryAdapter.get(key,function(err,reply) {});```
 <a name="BatchZincrby"></a>
 
 ## BatchZincrby ⇐ [<code>RedisBatchIncr</code>](#RedisBatchIncr)
@@ -101,7 +86,7 @@ The constructor of RedisBatchIncr
 
 | Param | Type |
 | --- | --- |
-| option | <code>BatchOption</code> |
+| option | <code>BatchOption</code> | 
 
 <a name="RedisBatchIncr+event_EVENT_SEND_ERROR"></a>
 
@@ -151,7 +136,7 @@ The constructor of RedisBatchIncr
 
 | Param | Type |
 | --- | --- |
-| option | <code>BatchOption</code> |
+| option | <code>BatchOption</code> | 
 
 <a name="RedisBatchIncr+event_EVENT_SEND_ERROR"></a>
 
@@ -182,10 +167,23 @@ redis helper class
 **Kind**: global class  
 
 * [RedisHelper](#RedisHelper)
+    * [new RedisHelper(option)](#new_RedisHelper_new)
     * _instance_
         * [.doParallelJobs(tasks, callback)](#RedisHelper+doParallelJobs)
+        * [.expire(key, callback)](#RedisHelper+expire)
     * _static_
         * [.EMPTY_FUN](#RedisHelper.EMPTY_FUN) : <code>String</code>
+
+<a name="new_RedisHelper_new"></a>
+
+### new RedisHelper(option)
+
+| Param | Type | Description |
+| --- | --- | --- |
+| option | <code>Object</code> |  |
+| option.redisClient | <code>Object</code> |  |
+| option.expiredHour | <code>Number</code> | The hour in next day, it will used in #expire function to expire the given key in next day. |
+| option.expiredCacheTime | <code>Number</code> | The milliseconds which used by RedisHelper to save the status of calling expire. when it greater than 0, RedisHelper will not call redis' expire command in `option.expiredCacheTime` milliseconds after you call `expire` function. |
 
 <a name="RedisHelper+doParallelJobs"></a>
 
@@ -198,6 +196,18 @@ Do redis requests in parallel, it will continue even if one of request fails.
 | --- | --- | --- |
 | tasks | <code>Array</code> \| <code>Object</code> |  |
 | callback | [<code>ParallelArrayCallback</code>](#ParallelArrayCallback) \| [<code>ParallelObjectCallback</code>](#ParallelObjectCallback) | If the tasks is a type of Array, callback will be a ParallelArrayCallback, otherwise it is a ParallelObjectCallback. |
+
+<a name="RedisHelper+expire"></a>
+
+### redisHelper.expire(key, callback)
+Set the key's age, it will be expired in the next day's certain hour which given in the constructor function.
+
+**Kind**: instance method of [<code>RedisHelper</code>](#RedisHelper)  
+
+| Param | Type | Description |
+| --- | --- | --- |
+| key | <code>String</code> | The key you wanna expire |
+| callback | <code>function</code> | The callback function of redis |
 
 <a name="RedisHelper.EMPTY_FUN"></a>
 
@@ -246,7 +256,7 @@ The constructor of RedisBatchIncr
 
 | Param | Type |
 | --- | --- |
-| option | <code>BatchOption</code> |
+| option | <code>BatchOption</code> | 
 
 <a name="RedisBatchIncr+RedisBatchIncr+addData"></a>
 
@@ -257,9 +267,9 @@ Add data to interval map.
 
 | Param | Type |
 | --- | --- |
-| key | <code>String</code> |
-| score | <code>Number</code> |
-| value | <code>String</code> |
+| key | <code>String</code> | 
+| score | <code>Number</code> | 
+| value | <code>String</code> | 
 
 <a name="RedisBatchIncr+event_EVENT_SEND_ERROR"></a>
 
@@ -392,7 +402,7 @@ The constructor of RedisBatchIncr
 
 | Param | Type |
 | --- | --- |
-| option | <code>BatchOption</code> |
+| option | <code>BatchOption</code> | 
 
 <a name="redisMultiBatchIncr.BatchMultiHincr"></a>
 
@@ -422,7 +432,7 @@ The constructor of RedisBatchIncr
 
 | Param | Type |
 | --- | --- |
-| option | <code>BatchOption</code> |
+| option | <code>BatchOption</code> | 
 
 <a name="redisMultiBatchIncr.EVENT_ONE_LOOP_FINISHED"></a>
 

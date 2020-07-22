@@ -6,7 +6,8 @@ var describe = mocha.describe;
 var it = mocha.it;
 const {RedisHelper} = require('../../index');
 const redisClient = new Redis();//connect to the redis server of localhost:6379
-const redisHelper = new RedisHelper({redisClient});
+const EXPIRE_HOUR = 3;
+const redisHelper = new RedisHelper({redisClient,expiredHour: EXPIRE_HOUR,expiredCacheTime:600 * 1000});
 
 describe('helper test#', function() {
     it('do parallel in array',function(done) {
@@ -116,6 +117,46 @@ describe('helper test#', function() {
                 });
             }
         ],done);
+        
+    });
+
+    it('the key should been expired in next day\'s ' + EXPIRE_HOUR + ' hour', function (done) {
+        const KEY = 'mykey';
+        async.waterfall([
+            function(next) {
+                redisClient.set(KEY,'some value', function(err) {
+                    next(err);
+                });
+            },
+            function(next) {
+                redisHelper.expire(KEY,function(err) {
+                    next(err);
+                });
+            },
+            function(next) {
+                const date = new Date();
+                const now = date.getTime();
+                date.setDate(date.getDate() + 1);
+                date.setHours(EXPIRE_HOUR);
+                const expireSecond = Math.floor((date - now) / 1000);
+                redisClient.ttl(KEY,function(err, reply) {
+                    if (err) {
+                        return next(err);
+                    }
+                    expect(Math.abs(Number(reply) - expireSecond)).to.be.lt(3);
+                    next();
+                });
+            },
+            function(next) {
+                redisHelper.expire(KEY,function(err, reply) {
+                    if (err) {
+                        return next(err);
+                    }
+                    expect(reply).to.be.equal(RedisHelper.HAS_CALL_EXPIRE_BEFORE);
+                    next();
+                });
+            }
+        ], done);
         
     });
 });

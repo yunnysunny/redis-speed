@@ -1,3 +1,7 @@
+# v1.2.0
+## Add
+1. Add the function `expire` of `RedisHelper`.
+
 # v1.1.0
 ## Add
 1. Add the utility of `BatchMultiHincr`.
